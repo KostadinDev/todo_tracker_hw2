@@ -96,7 +96,11 @@ class ToDoItem extends Component {
                 onClick={this.props.updateList}
                 className="list-item-control todo-button"
               />
-              <Close className="list-item-control todo-button" />
+              <Close
+                id={"close-" + listItem.id}
+                onClick={this.props.updateList}
+                className="list-item-control todo-button"
+              />
               <div className="list-item-control"></div>
               <div className="list-item-control"></div>
             </div>
