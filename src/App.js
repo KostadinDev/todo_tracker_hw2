@@ -120,6 +120,15 @@ class App extends Component {
     this.setState({currentList:{items:[]}})
   }
 
+  deleteList = () =>{
+    for (let i =0;i<this.state.toDoLists.length;i++){
+      if (this.state.toDoLists[i].id == this.state.currentList.id){
+        this.state.toDoLists.splice(i,1);
+      }
+    }
+    this.setState({toDoLists:this.state.toDoLists, currentList:{items:[]}});
+  }
+
   makeNewToDoListItem = () => {
     let newToDoListItem = {
       description: "No Description",
@@ -231,6 +240,7 @@ class App extends Component {
         <Workspace toDoListItems={items} updateList={this.f} 
         addItem = {this.addItem}
         close ={this.closeList}
+        delete ={this.deleteList}
         undo={this.undo} />
       </div>
     );
