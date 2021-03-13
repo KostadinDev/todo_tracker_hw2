@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import testData from './test/testData.json'
 import jsTPS from './common/jsTPS'
 
-// THESE ARE OUR REACT COMPONENTS
+// // THESE ARE OUR REACT COMPONENTS
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
@@ -16,7 +16,7 @@ class App extends Component {
     // ALWAYS DO THIS FIRST
     super(props);
 
-    // DISPLAY WHERE WE ARE
+    // // DISPLAY WHERE WE ARE
     console.log("App constructor");
 
     // MAKE OUR TRANSACTION PROCESSING SYSTEM
@@ -31,7 +31,7 @@ class App extends Component {
     }
     recentLists = JSON.parse(recentLists);
 
-    // FIND OUT WHAT THE HIGHEST ID NUMBERS ARE FOR LISTS
+    // // FIND OUT WHAT THE HIGHEST ID NUMBERS ARE FOR LISTS
     let highListId = -1;
     let highListItemId = -1;
     for (let i = 0; i < recentLists.length; i++) {
@@ -41,19 +41,18 @@ class App extends Component {
       }
       for (let j = 0; j < toDoList.items.length; j++) {
         let toDoListItem = toDoList.items[j];
-        if (toDoListItem.id > highListItemId)
-        highListItemId = toDoListItem.id;
+        if (toDoListItem.id > highListItemId) highListItemId = toDoListItem.id;
       }
-    };
+    }
 
     // SETUP OUR APP STATE
     this.state = {
       toDoLists: recentLists,
-      currentList: {items: []},
-      nextListId: highListId+1,
-      nextListItemId: highListItemId+1,
-      useVerboseFeedback: true
-    }
+      currentList: { items: [] },
+      nextListId: highListId + 1,
+      nextListItemId: highListItemId + 1,
+      useVerboseFeedback: true,
+    };
   }
 
   // WILL LOAD THE SELECTED LIST
@@ -61,16 +60,16 @@ class App extends Component {
     console.log("loading " + toDoList);
 
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
-    const nextLists = this.state.toDoLists.filter(testList =>
-      testList.id !== toDoList.id
+    const nextLists = this.state.toDoLists.filter(
+      (testList) => testList.id !== toDoList.id
     );
     nextLists.unshift(toDoList);
 
     this.setState({
       toDoLists: nextLists,
-      currentList: toDoList
+      currentList: toDoList,
     });
-  }
+  };
 
   addNewList = () => {
     let newToDoListInList = [this.makeNewToDoList()];
@@ -78,30 +77,53 @@ class App extends Component {
     let newToDoList = newToDoListInList[0];
 
     // AND SET THE STATE, WHICH SHOULD FORCE A render
-    this.setState({
-      toDoLists: newToDoListsList,
-      currentList: newToDoList,
-      nextListId: this.state.nextListId+1
-    }, this.afterToDoListsChangeComplete);
-  }
+    this.setState(
+      {
+        toDoLists: newToDoListsList,
+        currentList: newToDoList,
+        nextListId: this.state.nextListId + 1,
+      },
+      this.afterToDoListsChangeComplete
+    );
+  };
 
   makeNewToDoList = () => {
     let newToDoList = {
       id: this.highListId,
-      name: 'Untitled',
-      items: []
+      name: "Untitled",
+      items: [],
     };
     return newToDoList;
-  }
+  };
 
-  makeNewToDoListItem = () =>  {
+  makeNewToDoListItem = () => {
     let newToDoListItem = {
       description: "No Description",
       dueDate: "none",
-      status: "incomplete"
+      status: "incomplete",
     };
     return newToDoListItem;
-  }
+  };
+
+  f = (event) => {
+    console.log(event.target);
+ 
+    let id = event.target.id.split('-').slice(-1)[0];
+    let box = event.target.id.split('-')[0];
+    if (box =='description'){
+      for (let i =0 ;i< this.state.currentList.items.length;i++){
+        if (this.state.currentList.items[i].id==id){
+          this.state.currentList.items[i].description= event.target.value;
+          this.setState({currentList: this.state.currentList})
+        }
+      }
+    
+    }
+    console.log(id, box)
+    // for (let i = 0;i < newList.items.length;i++){
+    //   newList.items[i].description =
+    // }
+  };
 
   // THIS IS A CALLBACK FUNCTION FOR AFTER AN EDIT TO A LIST
   afterToDoListsChangeComplete = () => {
@@ -110,19 +132,19 @@ class App extends Component {
     // WILL THIS WORK? @todo
     let toDoListsString = JSON.stringify(this.state.toDoLists);
     localStorage.setItem("recent_work", toDoListsString);
-  }
+  };
 
   render() {
     let items = this.state.currentList.items;
     return (
       <div id="root">
         <Navbar />
-        <LeftSidebar 
+        <LeftSidebar
           toDoLists={this.state.toDoLists}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
         />
-        <Workspace toDoListItems={items} />
+        <Workspace toDoListItems={items} updateList={this.f} />
       </div>
     );
   }

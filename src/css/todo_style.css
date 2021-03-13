@@ -113,3 +113,14 @@
 #add-item-button, #delete-list-button, #close-list-button {
     text-align: center;
 }
+
+
+.item-input{
+    background-color: rgba(0,0,0,0);
+    border:none;
+    width:200px;
+    height:45px;
+    color:white;
+    font-weight: bold;
+    font-family: var(--font-primary);
+}
