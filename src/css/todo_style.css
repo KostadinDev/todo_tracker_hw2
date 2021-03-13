@@ -32,6 +32,9 @@
 #left-sidebar {
     background-color: var(--swatch-complement);
     color: rgb(233,237,240);
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    text-align:justify; 
 }
 
 #left-sidebar-header {
