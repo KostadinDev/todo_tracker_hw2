@@ -44,14 +44,17 @@ class Workspace extends Component {
             <AddBox
               id="add-item-button"
               className="list-item-control material-icons todo-button"
+              onClick = {this.props.addItem}
             />
             <Delete
               id="delete-list-button"
               className="list-item-control material-icons todo-button"
+              onClick={this.props.delete}
             />
             <Close
               id="close-list-button"
               className="list-item-control material-icons todo-button"
+              onClick = {this.props.close}
             />
           </div>
         </div>

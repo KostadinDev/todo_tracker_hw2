@@ -14,28 +14,29 @@ class LeftSidebar extends Component {
 
     render() {
         return (
-            <div id="left-sidebar">
-                <div id="left-sidebar-header" class="section-header">
-                    <span class="left-sidebar-header-text">Todolists</span>
-                    <span class="left-sidebar-controls" id="add-undo-redo-box">
-                        <AddBox 
-                            id="add-list-button"
-                            className="material-icons todo_button"
-                            onClick={this.handleAddNewList} />
-                    </span>
-                </div>
-                <div id="todo-lists-list">
-                {
-                    this.props.toDoLists.map((toDoList) => (
-                        <ListLink
-                            key={toDoList.id}
-                            toDoList={toDoList}                                // PASS THE LIST TO THE CHILDREN
-                            loadToDoListCallback={this.props.loadToDoListCallback}
-                            firstId ={this.props.firstId} />  // PASS THE CALLBACK TO THE CHILDREN
-                    ))
-                }
-                </div>
+          <div id="left-sidebar">
+            <div id="left-sidebar-header" class="section-header">
+              <span class="left-sidebar-header-text">Todolists</span>
+              <span class="left-sidebar-controls" id="add-undo-redo-box">
+                <AddBox
+                  id="add-list-button"
+                  className="material-icons todo_button"
+                  onClick={this.handleAddNewList}
+                />
+              </span>
             </div>
+            <div id="todo-lists-list">
+              {this.props.toDoLists.map((toDoList) => (
+                <ListLink
+                  key={Math.random().toString(36).substr(2, 9)}
+                  toDoList={toDoList} // PASS THE LIST TO THE CHILDREN
+                  loadToDoListCallback={this.props.loadToDoListCallback}
+                  firstId={this.props.firstId}
+                  updateLists={this.props.updateLists}
+                /> // PASS THE CALLBACK TO THE CHILDREN
+              ))}
+            </div>
+          </div>
         );
     }
 }

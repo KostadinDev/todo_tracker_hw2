@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
 import Transaction from './common/transaction'
+import { ThreeSixty, TimerSharp } from '@material-ui/icons';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -104,6 +105,17 @@ class App extends Component {
     this.setState({currentList:this.state.currentList})
   }
 
+  addItem = () =>{
+    let newToDoListItem = {
+      description: "No Description",
+      dueDate: "none",
+      status: "incomplete",
+      id: Math.random().toString(36).substr(2, 9)
+    };
+    this.state.currentList.items.push(newToDoListItem);
+    this.setState({currentList:this.state.currentList})
+  }
+
   makeNewToDoListItem = () => {
     let newToDoListItem = {
       description: "No Description",
@@ -112,6 +124,17 @@ class App extends Component {
     };
     return newToDoListItem;
   };
+ 
+  updateLists = (event) =>{
+    event.preventDefault();
+    let id = event.target.id.split("-").slice(-1)[0];
+    let box = event.target.id.split("-")[0];
+    console.log(id)
+    for (let i =0;i<this.state.toDoLists.length;i++){
+      this.state.toDoLists[i].name = event.target.value;
+      this.setState({toDoLists:this.state.toDoLists})
+    }
+  }
 
   f = (event) => {
     let id = event.target.id.split("-").slice(-1)[0];
@@ -197,9 +220,12 @@ class App extends Component {
           toDoLists={this.state.toDoLists}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
-          firstId = {this.state.currentList.id}
+          firstId={this.state.currentList.id}
+          updateLists={this.updateLists}
         />
-        <Workspace toDoListItems={items} updateList={this.f} undo = {this.undo} />
+        <Workspace toDoListItems={items} updateList={this.f} 
+        addItem = {this.addItem}
+        undo={this.undo} />
       </div>
     );
   }
