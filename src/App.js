@@ -7,6 +7,7 @@ import jsTPS from './common/jsTPS'
 import Navbar from './components/Navbar'
 import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
+import Transaction from './common/transaction'
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -96,6 +97,13 @@ class App extends Component {
     return newToDoList;
   };
 
+
+  undo = () => {
+    let undone = this.tps.undoTransaction();
+    console.log(undone)
+    this.setState({currentList:this.state.currentList})
+  }
+
   makeNewToDoListItem = () => {
     let newToDoListItem = {
       description: "No Description",
@@ -106,26 +114,25 @@ class App extends Component {
   };
 
   f = (event) => {
-    console.log(event.target);
- 
-    let id = event.target.id.split('-').slice(-1)[0];
-    let box = event.target.id.split('-')[0];
-    for (let i =0 ;i< this.state.currentList.items.length;i++){
-      if (this.state.currentList.items[i].id==id){
-        if (box =='description'){
-          this.state.currentList.items[i].description= event.target.value;
-          this.setState({currentList: this.state.currentList})
+    let id = event.target.id.split("-").slice(-1)[0];
+    let box = event.target.id.split("-")[0];
+    for (let i = 0; i < this.state.currentList.items.length; i++) {
+      if (this.state.currentList.items[i].id == id) {
+        if (box == "description") {
+          let transaction = new Transaction(this.state.currentList);
+          console.log(transaction)
+          this.tps.addTransaction(transaction);
+          this.state.currentList.items[i].description = event.target.value;
+          this.setState({ currentList: this.state.currentList });
         }
-        if (box =='dueDate'){
-          this.state.currentList.items[i].dueDate= event.target.value;
-          this.setState({currentList: this.state.currentList})
+        if (box == "dueDate") {
+          this.state.currentList.items[i].dueDate = event.target.value;
+          this.setState({ currentList: this.state.currentList });
         }
       }
-
     }
-    
 
-    console.log(id, box)
+    console.log(id, box);
     // for (let i = 0;i < newList.items.length;i++){
     //   newList.items[i].description =
     // }
@@ -150,7 +157,7 @@ class App extends Component {
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
         />
-        <Workspace toDoListItems={items} updateList={this.f} />
+        <Workspace toDoListItems={items} updateList={this.f} undo = {this.undo}/>
       </div>
     );
   }

@@ -35,6 +35,7 @@ class Workspace extends Component {
             <Undo
               id="undo-button"
               className="list-item-control material-icons todo-button"
+              onClick = {this.props.undo}
             />
             <Redo
               id="redo-button"

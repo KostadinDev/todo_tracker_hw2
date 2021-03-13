@@ -10,8 +10,11 @@
  * @author THE McKilla Gorilla (accept no imposters)
  * @version 1.0
  */
-export class jsTPS_Transaction {
-    /**
+export class jsTPS_Transaction {0
+
+    constructor(currentList) {
+        this.oldList = currentList;
+    }    /**
      * This method is called by jTPS when a transaction is executed.
      */
     doTransaction() {
@@ -22,7 +25,9 @@ export class jsTPS_Transaction {
      * This method is called by jTPS when a transaction is undone.
      */
     undoTransaction() {
-        console.log("undoTransaction - MISSING IMPLEMENTATION");
+        console.log("NO ONE HERE?")
+        this.currentList = this.oldlist
+        
     }
 }
 
@@ -148,7 +153,7 @@ export default class jsTPS {
 
         // ADD THE TRANSACTION
         this.transactions[this.mostRecentTransaction+1] = transaction;
-
+        console.log(this.transactions)
         // AND EXECUTE IT
         this.doTransaction();
     }
@@ -178,7 +183,8 @@ export default class jsTPS {
         if (this.hasTransactionToUndo()) {
             this.performingUndo = true;
             let transaction = this.transactions[this.mostRecentTransaction];
-            transaction.undoTransaction();
+            console.log(transaction)
+            let undone = transaction.undoTransaction();
             this.mostRecentTransaction--;
             this.performingUndo = false;
         }
