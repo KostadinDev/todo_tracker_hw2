@@ -152,10 +152,11 @@ class App extends Component {
   f = (event) => {
     let id = event.target.id.split("-").slice(-1)[0];
     let box = event.target.id.split("-")[0];
-    console.log(this.state.currentList.items, id, event.target)
+  
 
     for (let i = 0; i < this.state.currentList.items.length; i++) {
       if (this.state.currentList.items[i].id == id) {
+        console.log(this.state.currentList.items[i].id, id, 'execute')
         if (box === "description") {
           console.log(event.target.value)
           let transaction = new Transaction(this.state.currentList);
@@ -191,10 +192,15 @@ class App extends Component {
           if (i!=this.state.currentList.items.length-1){
             let transaction = new Transaction(this.state.currentList);
             this.tps.addTransaction(transaction);
+
             let temp = this.state.currentList.items[i];
-            this.state.currentList.items[i] = this.state.currentList.items[i+1];
-            this.state.currentList.items[i+1] = temp;
+            this.state.currentList.items[i] = this.state.currentList.items[
+              i + 1
+            ];
+            this.state.currentList.items[i + 1] = temp;
+
             this.setState({ currentList: this.state.currentList });
+            break;
           }
         }
         if (box == 'close'){
