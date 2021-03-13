@@ -22,13 +22,18 @@ class ToDoItem extends Component {
             console.log(event)
     }
 
+    getInverseStatus(status){
+
+        return status == "complete" ? "incomplete" : "complete";
+    }
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem render");
         let listItem = this.props.toDoListItem;
-        let statusType = "status-complete";
+        let statusType = "complete";
         if (listItem.status === "incomplete")
-            statusType = "status-incomplete";
+            statusType = "incomplete";
 
         return (
           <div id={"todo-list-item-" + listItem.id} className="list-item-card">
@@ -60,9 +65,25 @@ class ToDoItem extends Component {
             </form>
 
             {/* <div className="item-col due-date-col">{listItem.due_date}</div> */}
-            <div className="item-col status-col" className={statusType}>
+
+            <form>
+              <label>
+                <select
+                  id={"status-" + listItem.id}
+                  className={statusType}
+                  name="status"
+                  onChange={this.props.updateList}
+                  value={listItem.status}
+                >
+                  <option className ='option'>complete</option>
+                  <option className = 'option'>incomplete</option>
+                </select>
+              </label>
+            </form>
+
+            {/* <div className="item-col status-col" className={statusType}>
               {listItem.status}
-            </div>
+            </div> */}
             <div className="item-col test-4-col"></div>
             <div className="item-col list-controls-col">
               <KeyboardArrowUp className="list-item-control todo-button" />

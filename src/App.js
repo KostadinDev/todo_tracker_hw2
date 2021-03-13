@@ -120,13 +120,20 @@ class App extends Component {
       if (this.state.currentList.items[i].id == id) {
         if (box == "description") {
           let transaction = new Transaction(this.state.currentList);
-          console.log(transaction)
           this.tps.addTransaction(transaction);
           this.state.currentList.items[i].description = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
         if (box == "dueDate") {
           this.state.currentList.items[i].dueDate = event.target.value;
+          let transaction = new Transaction(this.state.currentList);
+          this.tps.addTransaction(transaction);
+          this.setState({ currentList: this.state.currentList });
+        }
+        if (box == "status") {
+          this.state.currentList.items[i].status = event.target.value;
+          let transaction = new Transaction(this.state.currentList);
+          this.tps.addTransaction(transaction);
           this.setState({ currentList: this.state.currentList });
         }
       }

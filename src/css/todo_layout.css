@@ -110,3 +110,27 @@
     width: 20%;
     
 }
+
+.complete{
+    color:#add8e6;
+    background-color: rgba(0,0,0,0);
+    border:none;
+    width:200px;
+    height:45px;
+    font-weight: bold;
+    font-family: var(--font-primary);;
+}
+
+.incomplete{
+    color:#ffc819;
+    background-color: rgba(0,0,0,0);
+    border:none;
+    width:200px;
+    height:45px;
+    font-weight: bold;
+    font-family: var(--font-primary);
+}
+
+.option{
+    color:black;
+}
