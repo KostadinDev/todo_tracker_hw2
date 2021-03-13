@@ -17,13 +17,13 @@ class Workspace extends Component {
     return (
       <div id="workspace">
         <div id="todo-list-header-card" className="list-item-card">
-          <div id="task-col-header" className=" todo-button">
+          <div id="task-col-header" className=" todo-button item-input">
             Task
           </div>
-          <div id="date-col-header" className="todo-button">
+          <div id="date-col-header" className="todo-button item-input">
             Due Date
           </div>
-          <div id="status-col-header" className=" todo-button">
+          <div id="status-col-header" className=" todo-button item-input">
             Status
           </div>
           <div

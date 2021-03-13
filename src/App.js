@@ -99,8 +99,8 @@ class App extends Component {
 
 
   undo = () => {
-    let undone = this.tps.undoTransaction();
-    console.log(undone)
+    this.tps.undoTransaction();
+    console.log("HELLO")
     this.setState({currentList:this.state.currentList})
   }
 
@@ -121,21 +121,23 @@ class App extends Component {
     for (let i = 0; i < this.state.currentList.items.length; i++) {
       if (this.state.currentList.items[i].id == id) {
         if (box === "description") {
+          console.log(event.target.value)
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
           this.state.currentList.items[i].description = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
         if (box === "dueDate") {
-          this.state.currentList.items[i].dueDate = event.target.value;
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
+          console.log(event.target.value)
+          this.state.currentList.items[i].dueDate = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
         if (box === "status") {
-          this.state.currentList.items[i].status = event.target.value;
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
+          this.state.currentList.items[i].status = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
         if (box === 'arrowUp'){
@@ -195,8 +197,9 @@ class App extends Component {
           toDoLists={this.state.toDoLists}
           loadToDoListCallback={this.loadToDoList}
           addNewListCallback={this.addNewList}
+          firstId = {this.state.currentList.id}
         />
-        <Workspace toDoListItems={items} updateList={this.f} undo = {this.undo}/>
+        <Workspace toDoListItems={items} updateList={this.f} undo = {this.undo} />
       </div>
     );
   }

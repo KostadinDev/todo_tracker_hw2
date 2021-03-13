@@ -85,6 +85,15 @@ class ToDoItem extends Component {
               {listItem.status}
             </div> */}
             <div className="">
+            <KeyboardArrowUp
+                id={"arrowUp-" + listItem.id}
+                onClick={this.props.updateList}
+                className="list-item-control todo-button inv"
+              /><KeyboardArrowUp
+              id={"arrowUp-" + listItem.id}
+              onClick={this.props.updateList}
+              className="list-item-control todo-button inv"
+            />
               <KeyboardArrowUp
                 id={"arrowUp-" + listItem.id}
                 onClick={this.props.updateList}
@@ -100,8 +109,7 @@ class ToDoItem extends Component {
                 onClick={this.props.updateList}
                 className="list-item-control todo-button"
               />
-              <div className="list-item-control"></div>
-              <div className="list-item-control"></div>
+        
             </div>
           </div>
         );

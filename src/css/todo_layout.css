@@ -136,3 +136,6 @@
 .option{
     color:black;
 }
+.inv{
+    visibility: hidden;
+}
