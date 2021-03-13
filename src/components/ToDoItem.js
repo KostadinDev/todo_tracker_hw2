@@ -84,8 +84,7 @@ class ToDoItem extends Component {
             {/* <div className="item-col status-col" className={statusType}>
               {listItem.status}
             </div> */}
-            <div className="item-col test-4-col"></div>
-            <div className="item-col list-controls-col">
+            <div className="">
               <KeyboardArrowUp
                 id={"arrowUp-" + listItem.id}
                 onClick={this.props.updateList}

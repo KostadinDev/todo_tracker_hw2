@@ -17,17 +17,17 @@ class Workspace extends Component {
     return (
       <div id="workspace">
         <div id="todo-list-header-card" className="list-item-card">
-          <div id="task-col-header" className="item-col todo-button">
+          <div id="task-col-header" className=" todo-button">
             Task
           </div>
-          <div id="date-col-header" className="item-col todo-button">
+          <div id="date-col-header" className="todo-button">
             Due Date
           </div>
-          <div id="status-col-header" className="item-col todo-button">
+          <div id="status-col-header" className=" todo-button">
             Status
           </div>
           <div
-            className="item-col"
+            className=""
             display="flex"
             flexDirection="row"
             flexWrap="nowrap"
