@@ -75,8 +75,8 @@ class ToDoItem extends Component {
                   onChange={this.props.updateList}
                   value={listItem.status}
                 >
-                  <option className ='option'>complete</option>
-                  <option className = 'option'>incomplete</option>
+                  <option className="option">complete</option>
+                  <option className="option">incomplete</option>
                 </select>
               </label>
             </form>
@@ -86,8 +86,16 @@ class ToDoItem extends Component {
             </div> */}
             <div className="item-col test-4-col"></div>
             <div className="item-col list-controls-col">
-              <KeyboardArrowUp className="list-item-control todo-button" />
-              <KeyboardArrowDown className="list-item-control todo-button" />
+              <KeyboardArrowUp
+                id={"arrowUp-" + listItem.id}
+                onClick={this.props.updateList}
+                className="list-item-control todo-button"
+              />
+              <KeyboardArrowDown
+                id={"arrowDown-" + listItem.id}
+                onClick={this.props.updateList}
+                className="list-item-control todo-button"
+              />
               <Close className="list-item-control todo-button" />
               <div className="list-item-control"></div>
               <div className="list-item-control"></div>

@@ -118,24 +118,46 @@ class App extends Component {
     let box = event.target.id.split("-")[0];
     for (let i = 0; i < this.state.currentList.items.length; i++) {
       if (this.state.currentList.items[i].id == id) {
-        if (box == "description") {
+        if (box === "description") {
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
           this.state.currentList.items[i].description = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
-        if (box == "dueDate") {
+        if (box === "dueDate") {
           this.state.currentList.items[i].dueDate = event.target.value;
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
           this.setState({ currentList: this.state.currentList });
         }
-        if (box == "status") {
+        if (box === "status") {
           this.state.currentList.items[i].status = event.target.value;
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
           this.setState({ currentList: this.state.currentList });
         }
+        if (box === 'arrowUp'){
+          if (i!=0){
+            let transaction = new Transaction(this.state.currentList);
+            this.tps.addTransaction(transaction);
+            let temp = this.state.currentList.items[i];
+            this.state.currentList.items[i] = this.state.currentList.items[i-1];
+            this.state.currentList.items[i-1] = temp;
+            this.setState({ currentList: this.state.currentList });
+          }
+
+        }
+        if (box === 'arrowDown'){
+          if (i!=this.state.currentList.items.length-1){
+            let transaction = new Transaction(this.state.currentList);
+            this.tps.addTransaction(transaction);
+            let temp = this.state.currentList.items[i];
+            this.state.currentList.items[i] = this.state.currentList.items[i+1];
+            this.state.currentList.items[i+1] = temp;
+            this.setState({ currentList: this.state.currentList });
+          }
+        }
+
       }
     }
 
