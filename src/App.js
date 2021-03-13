@@ -116,6 +116,10 @@ class App extends Component {
     this.setState({currentList:this.state.currentList})
   }
 
+  closeList = () =>{
+    this.setState({currentList:{items:[]}})
+  }
+
   makeNewToDoListItem = () => {
     let newToDoListItem = {
       description: "No Description",
@@ -212,6 +216,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.currentList,'here')
     let items = this.state.currentList.items;
     return (
       <div id="root">
@@ -225,6 +230,7 @@ class App extends Component {
         />
         <Workspace toDoListItems={items} updateList={this.f} 
         addItem = {this.addItem}
+        close ={this.closeList}
         undo={this.undo} />
       </div>
     );
