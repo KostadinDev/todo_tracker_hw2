@@ -110,15 +110,21 @@ class App extends Component {
  
     let id = event.target.id.split('-').slice(-1)[0];
     let box = event.target.id.split('-')[0];
-    if (box =='description'){
-      for (let i =0 ;i< this.state.currentList.items.length;i++){
-        if (this.state.currentList.items[i].id==id){
+    for (let i =0 ;i< this.state.currentList.items.length;i++){
+      if (this.state.currentList.items[i].id==id){
+        if (box =='description'){
           this.state.currentList.items[i].description= event.target.value;
           this.setState({currentList: this.state.currentList})
         }
+        if (box =='dueDate'){
+          this.state.currentList.items[i].dueDate= event.target.value;
+          this.setState({currentList: this.state.currentList})
+        }
       }
-    
+
     }
+    
+
     console.log(id, box)
     // for (let i = 0;i < newList.items.length;i++){
     //   newList.items[i].description =

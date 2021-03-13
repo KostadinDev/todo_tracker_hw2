@@ -33,14 +33,33 @@ class ToDoItem extends Component {
         return (
           <div id={"todo-list-item-" + listItem.id} className="list-item-card">
             {/* <div className='item-col task-col'>{listItem.description}</div> */}
-            <div>
+
             <form>
               <label>
-                <input id = {"description-"+listItem.id}type="text" className = "item-input" name="task" onChange = {this.props.updateList} value={listItem.description} />
+                <input
+                  id={"description-" + listItem.id}
+                  type="text"
+                  className="item-input"
+                  name="task"
+                  onChange={this.props.updateList}
+                  value={listItem.description}
+                />
               </label>
             </form>
-            </div>
-            <div className="item-col due-date-col">{listItem.due_date}</div>
+            <form>
+              <label>
+                <input
+                  id={"dueDate-" + listItem.id}
+                  type="date"
+                  className="item-input"
+                  name="date"
+                  onChange={this.props.updateList}
+                  value={listItem.dueDate}
+                />
+              </label>
+            </form>
+
+            {/* <div className="item-col due-date-col">{listItem.due_date}</div> */}
             <div className="item-col status-col" className={statusType}>
               {listItem.status}
             </div>
