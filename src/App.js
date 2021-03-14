@@ -14,6 +14,12 @@ import UpdateTransaction from './common/updateTransaction';
 import MoveTransaction from './common/moveTransaction'
 import useEventListener from '@use-it/event-listener'
 import KeyboardEventHandler from 'react-keyboard-event-handler';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -59,6 +65,7 @@ class App extends Component {
       nextListId: highListId + 1,
       nextListItemId: highListItemId + 1,
       useVerboseFeedback: true,
+      open:false
     };
   }
 
@@ -104,7 +111,7 @@ class App extends Component {
     return newToDoList;
   };
 
-
+  
   undo = () => {
     console.log(this.tps.transactions, this.tps.mostRecentTransaction, "THIS LINE");
 
@@ -145,7 +152,7 @@ class App extends Component {
         this.state.toDoLists.splice(i,1);
       }
     }
-    this.setState({toDoLists:this.state.toDoLists, currentList:{items:[]}});
+    this.setState({toDoLists:this.state.toDoLists, currentList:{items:[]}, open:false});
   }
 
   makeNewToDoListItem = () => {
@@ -253,10 +260,19 @@ class App extends Component {
       console.log('You pressed the escape key!')
     }
   }
+  
   render() {
-    
-    let items = this.state.currentList.items;
 
+    const handleClickOpen = () => {
+  
+      console.log("HANDLE IT ")
+      this.setState({open:true});
+    };
+  
+    const handleClose = () => {
+      this.setState({open:false});
+    };
+  
     return (
       <div id="root">
         <Navbar />
@@ -267,26 +283,40 @@ class App extends Component {
           firstId={this.state.currentList.id}
           updateLists={this.updateLists}
         />
-        <Workspace toDoListItems={items} updateList={this.f} 
-        addItem = {this.addItem}
-        close ={this.closeList}
-        delete ={this.deleteList}
-        undo={this.undo}
-        redo = {this.redo}
-        submitForm={this.submitForm} 
-        tps = {this.tps}
-        
+        <Workspace
+          toDoListItems={this.state.currentList.items}
+          updateList={this.f}
+          addItem={this.addItem}
+          close={this.closeList}
+          delete={this.deleteList}
+          undo={this.undo}
+          redo={this.redo}
+          submitForm={this.submitForm}
+          tps={this.tps}
+          handleClickOpen={handleClickOpen}
         />
-   
-   <KeyboardEventHandler
-        handleKeys={['ctrl+y']}
-        onKeyEvent={this.redo} />
-         <KeyboardEventHandler
-        handleKeys={['ctrl+z']}
-        onKeyEvent={this.undo} />
-        
 
+        <KeyboardEventHandler handleKeys={["ctrl+y"]} onKeyEvent={this.redo} />
+        <KeyboardEventHandler handleKeys={["ctrl+z"]} onKeyEvent={this.undo} />
 
+        <Dialog
+          open={this.state.open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Are you sure you want to delete the list?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={this.deleteList} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }

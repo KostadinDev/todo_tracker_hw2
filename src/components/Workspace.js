@@ -56,7 +56,7 @@ class Workspace extends Component {
                {availability=='available'?   <Delete
               id="delete-list-button"
               className="list-item-control material-icons todo-button"
-              onClick={this.props.delete}
+              onClick={this.props.handleClickOpen}
             />: ''}
           
             {availability=='available'? <Close
