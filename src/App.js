@@ -10,6 +10,8 @@ import Workspace from './components/Workspace'
 import Transaction from './common/transaction'
 import { ThreeSixty, TimerSharp } from '@material-ui/icons';
 import CloseTransaction from './common/closeTransaction';
+import UpdateTransaction from './common/updateTransaction';
+import MoveTransaction from './common/moveTransaction'
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -72,10 +74,7 @@ class App extends Component {
       toDoLists: nextLists,
       currentList: toDoList,
     });
-    
-    let transaction = new Transaction(this.state.currentList);
-    this.tps.addTransaction(transaction);
-    console.log('TRANSACTIONS: ', this.tps.getSize())
+  
   };
 
   addNewList = () => {
@@ -176,47 +175,42 @@ class App extends Component {
     console.log("CHANGE NO?")
     for (let i = 0; i < this.state.currentList.items.length; i++) {
       if (this.state.currentList.items[i].id == id) {
-        console.log(this.state.currentList.items[i].id, id, 'execute')
-        if (box === "description") {
-          let transaction = new Transaction(this.state.currentList);
+        if (box === "description" ) {
+          let temp = JSON.parse(JSON.stringify(this.state.currentList.items[i]));
+          temp.description = event.target.value;
+          let transaction = new UpdateTransaction(this.state.currentList, this.state.currentList.items[i], i,temp );
           this.tps.addTransaction(transaction);
-          this.state.currentList.items[i].description = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
         if (box === "due_date") {
   
-          let transaction = new Transaction(this.state.currentList);
+          let temp = JSON.parse(JSON.stringify(this.state.currentList.items[i]));
+          temp.due_date = event.target.value.toString();
+          let transaction = new UpdateTransaction(this.state.currentList, this.state.currentList.items[i], i,temp );
           this.tps.addTransaction(transaction);
-          this.state.currentList.items[i].due_date = event.target.value.toString();
           this.setState({ currentList: this.state.currentList });
         }
         if (box === "status") {
-          let transaction = new Transaction(this.state.currentList);
+          let temp = JSON.parse(JSON.stringify(this.state.currentList.items[i]));
+          temp.status = event.target.value;
+          let transaction = new UpdateTransaction(this.state.currentList, this.state.currentList.items[i], i,temp );
           this.tps.addTransaction(transaction);
-          this.state.currentList.items[i].status = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
         if (box === 'arrowUp'){
           if (i!=0){
-            let transaction = new Transaction(this.state.currentList);
+            let transaction = new MoveTransaction(this.state.currentList,i,i-1);
             this.tps.addTransaction(transaction);
-            let temp = this.state.currentList.items[i];
-            this.state.currentList.items[i] = this.state.currentList.items[i-1];
-            this.state.currentList.items[i-1] = temp;
+
             this.setState({ currentList: this.state.currentList });
+            break;
           }
 
         }
         if (box === 'arrowDown'){
           if (i!=this.state.currentList.items.length-1){
-            let transaction = new Transaction(this.state.currentList);
+            let transaction = new MoveTransaction(this.state.currentList,i,i+1);
             this.tps.addTransaction(transaction);
-
-            let temp = this.state.currentList.items[i];
-            this.state.currentList.items[i] = this.state.currentList.items[
-              i + 1
-            ];
-            this.state.currentList.items[i + 1] = temp;
 
             this.setState({ currentList: this.state.currentList });
             break;
