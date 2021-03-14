@@ -72,6 +72,7 @@ class Workspace extends Component {
               key={toDoListItem.id}
               toDoListItem={toDoListItem} // PASS THE ITEM TO THE CHILDREN
               updateList={this.props.updateList}
+              submitForm = {this.props.submitForm}
             />
           ))}
         </div>

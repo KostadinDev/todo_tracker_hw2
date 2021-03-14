@@ -27,6 +27,11 @@ class ToDoItem extends Component {
         return status == "complete" ? "incomplete" : "complete";
     }
 
+    handleSubmit = (event) =>{
+      event.preventDefault();
+      this.props.submitForm.bind(this);
+    }
+
     render() {
         // DISPLAY WHERE WE ARE
         console.log("\t\t\tToDoItem render");
@@ -34,12 +39,12 @@ class ToDoItem extends Component {
         let statusType = "complete";
         if (listItem.status === "incomplete")
             statusType = "incomplete";
-
+        console.log("DATE TIME: ", listItem.due_date)
         return (
           <div id={"todo-list-item-" + listItem.id} className="list-item-card">
             {/* <div className='item-col task-col'>{listItem.description}</div> */}
 
-            <form>
+            <form >
               <label>
                 <input
                   id={"description-" + listItem.id}
@@ -49,17 +54,18 @@ class ToDoItem extends Component {
                   onChange={this.props.updateList}
                   value={listItem.description}
                 />
+                <input type ='submit' className='unavailable'/>
               </label>
             </form>
             <form>
               <label>
                 <input
-                  id={"dueDate-" + listItem.id}
+                  id={"due_date-" + listItem.id}
                   type="date"
                   className="item-input"
                   name="date"
                   onChange={this.props.updateList}
-                  value={listItem.dueDate}
+                  value={listItem.due_date}
                 />
               </label>
             </form>

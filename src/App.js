@@ -108,9 +108,9 @@ class App extends Component {
   addItem = () =>{
     let newToDoListItem = {
       description: "No Description",
-      dueDate: "none",
+      due_date: "none",
       status: "incomplete",
-      id: Math.random().toString(36).substr(2, 9)
+      id: Math.random().toString(36).substr(2, 9),
     };
     this.state.currentList.items.push(newToDoListItem);
     this.setState({currentList:this.state.currentList})
@@ -132,7 +132,7 @@ class App extends Component {
   makeNewToDoListItem = () => {
     let newToDoListItem = {
       description: "No Description",
-      dueDate: "none",
+      due_date: "none",
       status: "incomplete",
     };
     return newToDoListItem;
@@ -149,26 +149,27 @@ class App extends Component {
     }
   }
 
+
+
   f = (event) => {
     let id = event.target.id.split("-").slice(-1)[0];
     let box = event.target.id.split("-")[0];
-  
-
+    
+    console.log("CHANGE NO?")
     for (let i = 0; i < this.state.currentList.items.length; i++) {
       if (this.state.currentList.items[i].id == id) {
         console.log(this.state.currentList.items[i].id, id, 'execute')
         if (box === "description") {
-          console.log(event.target.value)
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
           this.state.currentList.items[i].description = event.target.value;
           this.setState({ currentList: this.state.currentList });
         }
-        if (box === "dueDate") {
+        if (box === "due_date") {
+  
           let transaction = new Transaction(this.state.currentList);
           this.tps.addTransaction(transaction);
-          console.log(event.target.value)
-          this.state.currentList.items[i].dueDate = event.target.value;
+          this.state.currentList.items[i].due_date = event.target.value.toString();
           this.setState({ currentList: this.state.currentList });
         }
         if (box === "status") {
@@ -215,10 +216,8 @@ class App extends Component {
       }
     }
 
-    console.log(id, box);
-    // for (let i = 0;i < newList.items.length;i++){
-    //   newList.items[i].description =
-    // }
+
+ 
   };
 
   // THIS IS A CALLBACK FUNCTION FOR AFTER AN EDIT TO A LIST
@@ -247,7 +246,9 @@ class App extends Component {
         addItem = {this.addItem}
         close ={this.closeList}
         delete ={this.deleteList}
-        undo={this.undo} />
+        undo={this.undo}
+        submitForm={this.submitForm} />
+      
       </div>
     );
   }

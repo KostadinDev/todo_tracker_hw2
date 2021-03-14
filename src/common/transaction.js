@@ -9,6 +9,7 @@ export default class Transaction {
     constructor(currentList) {
         this.currentList = currentList;
         this.oldList = JSON.parse(JSON.stringify(currentList));
+    
     }    /**
      * This method is called by jTPS when a transaction is executed.
      */
