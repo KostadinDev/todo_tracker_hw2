@@ -43,6 +43,7 @@ class Workspace extends Component {
              {availability=='available'?  <Redo
               id="redo-button"
               className="list-item-control material-icons todo-button"
+              onClick = {this.props.redo}
             />: ''}
            
             

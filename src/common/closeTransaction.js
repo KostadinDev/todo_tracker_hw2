@@ -1,29 +1,28 @@
 'use strict'
 
-import { TimerSharp } from "@material-ui/icons";
+import { ThreeDRotationSharp, TimerSharp } from "@material-ui/icons";
 
 // IMPORT ALL THE THINGS NEEDED FROM OTHER JAVASCRIPT SOURCE FILES
 
 // THIS TRANSACTION IS FOR ADDING A NEW ITEM TO A TODO LIST
-export default class Transaction {
-    constructor(currentList) {
+export default class CloseTransaction {
+    constructor(currentList, item, itemIndex) {
         this.currentList = currentList;
-        this.oldList = JSON.parse(JSON.stringify(currentList));
+        this.item = item;
+        this.itemIndex = itemIndex;
     
     }    /**
      * This method is called by jTPS when a transaction is executed.
      */
     doTransaction() {
-        //this.currentList.items = this.oldList.items
+        this.currentList.items.splice(this.itemIndex,1);
     }
-    redoTransaction() {
-        this.currentList.items = this.oldList.items
-    }
+  
     
     /**
      * This method is called by jTPS when a transaction is undone.
      */
     undoTransaction() {
-        this.currentList.items = this.oldList.items
+        this.currentList.items.splice(this.itemIndex,0, this.item);
     }
 }

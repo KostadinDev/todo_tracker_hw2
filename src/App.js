@@ -9,6 +9,7 @@ import LeftSidebar from './components/LeftSidebar'
 import Workspace from './components/Workspace'
 import Transaction from './common/transaction'
 import { ThreeSixty, TimerSharp } from '@material-ui/icons';
+import CloseTransaction from './common/closeTransaction';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -59,18 +60,22 @@ class App extends Component {
 
   // WILL LOAD THE SELECTED LIST
   loadToDoList = (toDoList) => {
-    console.log("loading " + toDoList);
+    console.log("loading " + toDoList, "HEREEEEEEEE");
 
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
     const nextLists = this.state.toDoLists.filter(
       (testList) => testList.id !== toDoList.id
     );
     nextLists.unshift(toDoList);
-
+    
     this.setState({
       toDoLists: nextLists,
       currentList: toDoList,
     });
+    
+    let transaction = new Transaction(this.state.currentList);
+    this.tps.addTransaction(transaction);
+    console.log('TRANSACTIONS: ', this.tps.getSize())
   };
 
   addNewList = () => {
@@ -100,9 +105,22 @@ class App extends Component {
 
 
   undo = () => {
-    this.tps.undoTransaction();
-    console.log("HELLO")
-    this.setState({currentList:this.state.currentList})
+    console.log(this.tps.transactions, this.tps.mostRecentTransaction, "THIS LINE");
+
+
+
+   
+      this.tps.undoTransaction();
+      this.setState({currentList:this.state.currentList})
+      
+   
+  }
+
+  redo = () =>{
+    console.log(this.tps.transactions, this.tps.mostRecentTransaction, "THIS LINE");
+
+    this.tps.doTransaction();
+    this.setState({currentList:this.state.currentList});
   }
 
   addItem = () =>{
@@ -205,10 +223,8 @@ class App extends Component {
           }
         }
         if (box == 'close'){
-          let transaction = new Transaction(this.state.currentList);
+          let transaction = new CloseTransaction(this.state.currentList, this.state.currentList.items[i], i);
           this.tps.addTransaction(transaction);
-          this.state.currentList.items.splice(i,1);
-          console.log('what??');
           this.setState({ currentList: this.state.currentList });
           
         }
@@ -247,6 +263,7 @@ class App extends Component {
         close ={this.closeList}
         delete ={this.deleteList}
         undo={this.undo}
+        redo = {this.redo}
         submitForm={this.submitForm} />
       
       </div>
