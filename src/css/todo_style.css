@@ -95,7 +95,6 @@
 }
 
 
-
 #add-list-button {
     color: var(--swatch-accent);
 }
@@ -116,11 +115,12 @@
 .item-input{
     background-color: rgba(0,0,0,0);
     border:none;
-    width:200px;
+    width:250px;
     height:45px;
     color:white;
     font-weight: bold;
     font-family: var(--font-primary);
+
 }
 .input{
     color:black;

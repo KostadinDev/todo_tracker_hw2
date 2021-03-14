@@ -44,8 +44,8 @@ class ToDoItem extends Component {
           <div id={"todo-list-item-" + listItem.id} className="list-item-card">
             {/* <div className='item-col task-col'>{listItem.description}</div> */}
 
-            <form >
-              <label>
+         
+           
                 <input
                   id={"description-" + listItem.id}
                   type="text"
@@ -54,11 +54,10 @@ class ToDoItem extends Component {
                   onChange={this.props.updateList}
                   value={listItem.description}
                 />
-                <input type ='submit' className='unavailable'/>
-              </label>
-            </form>
-            <form>
-              <label>
+        
+        
+         
+           
                 <input
                   id={"due_date-" + listItem.id}
                   type="date"
@@ -67,13 +66,13 @@ class ToDoItem extends Component {
                   onChange={this.props.updateList}
                   value={listItem.due_date}
                 />
-              </label>
-            </form>
+        
+     
 
             {/* <div className="item-col due-date-col">{listItem.due_date}</div> */}
 
-            <form>
-              <label>
+
+            
                 <select
                   id={"status-" + listItem.id}
                   className={statusType}
@@ -84,8 +83,8 @@ class ToDoItem extends Component {
                   <option className="option">complete</option>
                   <option className="option">incomplete</option>
                 </select>
-              </label>
-            </form>
+         
+     
 
             {/* <div className="item-col status-col" className={statusType}>
               {listItem.status}
