@@ -14,6 +14,8 @@ class Workspace extends Component {
 
  
   render() {
+      let availability = this.props.toDoListItems.length == 0? 'unavailable': 'available';
+      console.log(availability);
     return (
       <div id="workspace">
         <div id="todo-list-header-card" className="list-item-card">
@@ -32,30 +34,36 @@ class Workspace extends Component {
             flexDirection="row"
             flexWrap="nowrap"
           >
-            <Undo
+             {availability=='available'?   <Undo
               id="undo-button"
               className="list-item-control material-icons todo-button"
               onClick = {this.props.undo}
-            />
-            <Redo
+            />: ''}
+          
+             {availability=='available'?  <Redo
               id="redo-button"
               className="list-item-control material-icons todo-button"
-            />
-            <AddBox
+            />: ''}
+           
+            
+        
+             {availability=='available'?     <AddBox
               id="add-item-button"
               className="list-item-control material-icons todo-button"
               onClick = {this.props.addItem}
-            />
-            <Delete
+            />: ''}
+               {availability=='available'?   <Delete
               id="delete-list-button"
               className="list-item-control material-icons todo-button"
               onClick={this.props.delete}
-            />
-            <Close
-              id="close-list-button"
+            />: ''}
+          
+            {availability=='available'? <Close
+              id={"close-list-button " + availability}
               className="list-item-control material-icons todo-button"
               onClick = {this.props.close}
-            />
+            />: ''}
+          
           </div>
         </div>
         <div id="todo-list-items-div">
