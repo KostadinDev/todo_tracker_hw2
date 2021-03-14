@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Close from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import { MDBCloseIcon } from "mdbreact"
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -109,11 +111,16 @@ class ToDoItem extends Component {
                 onClick={this.props.updateList}
                 className="list-item-control todo-button"
               />
-              <Close
+    
+           
+                  
+                  <Close 
                 id={"close-" + listItem.id}
                 onClick={this.props.updateList}
-                className="list-item-control todo-button"
-              />
+                className="list-item-control todo-button"/>  
+                 
+        
+
         
             </div>
           </div>

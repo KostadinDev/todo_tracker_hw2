@@ -34,13 +34,13 @@ class Workspace extends Component {
             flexDirection="row"
             flexWrap="nowrap"
           >
-             {availability=='available'?   <Undo
+             {this.props.tps.hasTransactionToUndo()?   <Undo
               id="undo-button"
               className="list-item-control material-icons todo-button"
               onClick = {this.props.undo}
             />: ''}
           
-             {availability=='available'?  <Redo
+             {this.props.tps.hasTransactionToRedo()?  <Redo
               id="redo-button"
               className="list-item-control material-icons todo-button"
               onClick = {this.props.redo}

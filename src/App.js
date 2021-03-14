@@ -12,6 +12,8 @@ import { ThreeSixty, TimerSharp } from '@material-ui/icons';
 import CloseTransaction from './common/closeTransaction';
 import UpdateTransaction from './common/updateTransaction';
 import MoveTransaction from './common/moveTransaction'
+import useEventListener from '@use-it/event-listener'
+import KeyboardEventHandler from 'react-keyboard-event-handler';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -239,9 +241,22 @@ class App extends Component {
     localStorage.setItem("recent_work", toDoListsString);
   };
 
+  handler({ key }) {
+    const ESCAPE_KEYS = ['27', 'Escape'];
+    if (ESCAPE_KEYS.includes(String(key))) {
+      console.log('Escape key pressed!');
+    }
+  }
+  handleKeyDown= (e) => {
+    console.log('yehaw?')
+    if (e.keyCode === 27) {
+      console.log('You pressed the escape key!')
+    }
+  }
   render() {
-    console.log(this.state.currentList,'here')
+    
     let items = this.state.currentList.items;
+
     return (
       <div id="root">
         <Navbar />
@@ -258,8 +273,20 @@ class App extends Component {
         delete ={this.deleteList}
         undo={this.undo}
         redo = {this.redo}
-        submitForm={this.submitForm} />
-      
+        submitForm={this.submitForm} 
+        tps = {this.tps}
+        
+        />
+   
+   <KeyboardEventHandler
+        handleKeys={['ctrl+y']}
+        onKeyEvent={this.redo} />
+         <KeyboardEventHandler
+        handleKeys={['ctrl+z']}
+        onKeyEvent={this.undo} />
+        
+
+
       </div>
     );
   }
