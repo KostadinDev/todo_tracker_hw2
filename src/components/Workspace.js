@@ -48,7 +48,7 @@ class Workspace extends Component {
            
             
         
-             {availability=='available'?     <AddBox
+             {this.props.loaded==true?     <AddBox
               id="add-item-button"
               className="list-item-control material-icons todo-button"
               onClick = {this.props.addItem}

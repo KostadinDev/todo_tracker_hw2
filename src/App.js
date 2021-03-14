@@ -20,6 +20,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import OpenTransaction from './common/openTransaction';
 {/*import ItemsListHeaderComponent from './components/ItemsListHeaderComponent'
 import ItemsListComponent from './components/ItemsListComponent'
 import ListsComponent from './components/ListsComponent'
@@ -65,14 +66,14 @@ class App extends Component {
       nextListId: highListId + 1,
       nextListItemId: highListItemId + 1,
       useVerboseFeedback: true,
+      loaded: false,
       open:false
     };
   }
 
   // WILL LOAD THE SELECTED LIST
   loadToDoList = (toDoList) => {
-    console.log("loading " + toDoList, "HEREEEEEEEE");
-
+    this.tps.clearAllTransactions();
     // MAKE SURE toDoList IS AT THE TOP OF THE STACK BY REMOVING THEN PREPENDING
     const nextLists = this.state.toDoLists.filter(
       (testList) => testList.id !== toDoList.id
@@ -82,6 +83,7 @@ class App extends Component {
     this.setState({
       toDoLists: nextLists,
       currentList: toDoList,
+      loaded:true,
     });
   
   };
@@ -132,18 +134,16 @@ class App extends Component {
   }
 
   addItem = () =>{
-    let newToDoListItem = {
-      description: "No Description",
-      due_date: "none",
-      status: "incomplete",
-      id: Math.random().toString(36).substr(2, 9),
-    };
-    this.state.currentList.items.push(newToDoListItem);
+    
+  
+    let transaction = new OpenTransaction(this.state.currentList);
+    this.tps.addTransaction(transaction);
     this.setState({currentList:this.state.currentList})
   }
 
   closeList = () =>{
-    this.setState({currentList:{items:[]}})
+    this.tps.clearAllTransactions();
+    this.setState({currentList:{items:[]}, loaded:false})
   }
 
   deleteList = () =>{
@@ -152,6 +152,7 @@ class App extends Component {
         this.state.toDoLists.splice(i,1);
       }
     }
+    this.tps.clearAllTransactions();
     this.setState({toDoLists:this.state.toDoLists, currentList:{items:[]}, open:false});
   }
 
@@ -294,6 +295,7 @@ class App extends Component {
           submitForm={this.submitForm}
           tps={this.tps}
           handleClickOpen={handleClickOpen}
+          loaded = {this.state.loaded}
         />
 
         <KeyboardEventHandler handleKeys={["ctrl+y"]} onKeyEvent={this.redo} />
@@ -303,17 +305,17 @@ class App extends Component {
           open={this.state.open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-describedby="alert-dialog-description dark"
         >
           <DialogTitle id="alert-dialog-title">
             {"Are you sure you want to delete the list?"}
           </DialogTitle>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Disagree
+              Cancel
             </Button>
             <Button onClick={this.deleteList} color="primary" autoFocus>
-              Agree
+              Delete
             </Button>
           </DialogActions>
         </Dialog>
