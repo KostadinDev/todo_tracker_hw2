@@ -2,8 +2,11 @@ import React from 'react';
 
 
 const ToDoList = (props) =>{
+    let highlight = props.idx == 0 ? "toplist" : "";
+    console.log(highlight, " sdd")
     return (
-      <div className = "todo-list-button "
+      <div
+        className={"todo-list-button " + highlight}
         onClick={(event) => {
           console.log(props.listy, "ehm");
           props.loadToDoListCallback(props.listy);
@@ -17,7 +20,7 @@ const ToDoList = (props) =>{
             className="list-input top"
           ></input>
         ) : (
-          <div > {props.name}</div>
+          <div> {props.name}</div>
         )}
       </div>
     );

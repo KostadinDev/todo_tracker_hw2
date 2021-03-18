@@ -21,24 +21,29 @@ class LeftSidebar extends Component {
         return (
           <div id="left-sidebar">
             <div id="left-sidebar-header" className="section-header">
-              <span >Todolists</span>
+              <span>Todolists</span>
               <span class="left-sidebar-controls" id="add-undo-redo-box">
-                {!this.props.loaded?   <AddBox
-                  id="add-list-button"
-                  className="material-icons todo_button highlight"
-                  onClick={this.handleAddNewList}
-                />: ""}
-             
+                {!this.props.loaded ? (
+                  <AddBox
+                    id="add-list-button"
+                    className="material-icons todo_button highlight"
+                    onClick={this.handleAddNewList}
+                  />
+                ) : (
+                  ""
+                )}
               </span>
             </div>
-  
-            <div id="todo-lists-list" className = "left-sidebar-header-text">
-              {this.props.toDoLists.map((toDoList,index) => (
-                <ToDoList name = {toDoList.name}
-                loadToDoListCallback={this.props.loadToDoListCallback}
-                listy = {toDoList}
-                updateLists = {this.props.updateLists}
-                idx = {index}/>
+
+            <div id="todo-lists-list" className="left-sidebar-header-text">
+              {this.props.toDoLists.map((toDoList, index) => (
+                <ToDoList
+                  name={toDoList.name}
+                  loadToDoListCallback={this.props.loadToDoListCallback}
+                  listy={toDoList}
+                  updateLists={this.props.updateLists}
+                  idx={index}
+                />
                 // <ListLink
                 //   key={Math.random().toString(36).substr(2, 9)}
                 //   toDoList={toDoList} // PASS THE LIST TO THE CHILDREN
