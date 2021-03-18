@@ -41,87 +41,88 @@ class ToDoItem extends Component {
         let statusType = "complete";
         if (listItem.status === "incomplete")
             statusType = "incomplete";
-        console.log("DATE TIME: ", listItem.due_date)
+        console.log("INDEX: ",this.props.index)
         return (
           <div id={"todo-list-item-" + listItem.id} className="list-item-card">
             {/* <div className='item-col task-col'>{listItem.description}</div> */}
 
-         
-           
-                <input
-                  id={"description-" + listItem.id}
-                  type="text"
-                  className="item-input"
-                  name="task"
-                  onChange={this.props.updateList}
-                  value={listItem.description}
-                />
-        
-        
-         
-           
-                <input
-                  id={"due_date-" + listItem.id}
-                  type="date"
-                  className="item-input"
-                  name="date"
-                  onChange={this.props.updateList}
-                  value={listItem.due_date}
-                />
-        
-     
+            <input
+              id={"description-" + listItem.id}
+              type="text"
+              className="item-input"
+              name="task"
+              onChange={this.props.updateList}
+              value={listItem.description}
+            />
+
+            <input
+              id={"due_date-" + listItem.id}
+              type="date"
+              className="item-input"
+              name="date"
+              onChange={this.props.updateList}
+              value={listItem.due_date}
+            />
 
             {/* <div className="item-col due-date-col">{listItem.due_date}</div> */}
 
-
-            
-                <select
-                  id={"status-" + listItem.id}
-                  className={statusType}
-                  name="status"
-                  onChange={this.props.updateList}
-                  value={listItem.status}
-                >
-                  <option className="option">complete</option>
-                  <option className="option">incomplete</option>
-                </select>
-         
-     
+            <select
+              id={"status-" + listItem.id}
+              className={statusType}
+              name="status"
+              onChange={this.props.updateList}
+              value={listItem.status}
+            >
+              <option className="option">complete</option>
+              <option className="option">incomplete</option>
+            </select>
 
             {/* <div className="item-col status-col" className={statusType}>
               {listItem.status}
             </div> */}
             <div className="">
-            <KeyboardArrowUp
-                id={"arrowUp-" + listItem.id}
-                onClick={this.props.updateList}
-                className="list-item-control todo-button inv"
-              /><KeyboardArrowUp
-              id={"arrowUp-" + listItem.id}
-              onClick={this.props.updateList}
-              className="list-item-control todo-button inv"
-            />
               <KeyboardArrowUp
                 id={"arrowUp-" + listItem.id}
                 onClick={this.props.updateList}
-                className="list-item-control todo-button"
+                className="list-item-control highlight todo-button inv"
               />
-              <KeyboardArrowDown
-                id={"arrowDown-" + listItem.id}
+              <KeyboardArrowUp
+                id={"arrowUp-" + listItem.id}
                 onClick={this.props.updateList}
-                className="list-item-control todo-button"
+                className="list-item-control highlight todo-button inv"
               />
-    
-           
-                  
-                  <Close 
+              {!(this.props.idx == 0) ? (
+                <KeyboardArrowUp
+                  id={"arrowUp-" + listItem.id}
+                  onClick={this.props.updateList}
+                  className="list-item-control highlight todo-button"
+                />
+              ) : (
+                <KeyboardArrowUp
+                  id={"arrowUp-" + listItem.id}
+                  onClick={this.props.updateList}
+                  className="list-item-control highlight todo-button disable"
+                />
+              )}
+              {this.props.idx != this.props.len - 1 ? (
+                <KeyboardArrowDown
+                  id={"arrowDown-" + listItem.id}
+                  onClick={this.props.updateList}
+                  className="list-item-control highlight todo-button"
+                />
+              ) : (
+                <KeyboardArrowDown
+                  id={"arrowDown-" + listItem.id}
+                  onClick={this.props.updateList}
+                  className="list-item-control highlight todo-button disable"
+                />
+              )}
+
+              <Close
                 id={"close-" + listItem.id}
                 onClick={this.props.updateList}
-                className="list-item-control todo-button"/>  
-                 
-        
-
-        
+                className="list-item-control highlight todo-button"
+              />
             </div>
           </div>
         );

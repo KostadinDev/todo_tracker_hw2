@@ -66,7 +66,7 @@ class App extends Component {
       nextListId: highListId + 1,
       nextListItemId: highListItemId + 1,
       useVerboseFeedback: true,
-      loaded: false,
+      loaded: true,
       open:false
     };
   }
@@ -87,6 +87,11 @@ class App extends Component {
     });
   
   };
+
+  handleUpdateList= (event) =>{
+    console.log("SURPRISE IT OWRKS");
+    event.preventDefault();
+  }
 
   addNewList = () => {
     let newToDoListInList = [this.makeNewToDoList()];
@@ -153,7 +158,7 @@ class App extends Component {
       }
     }
     this.tps.clearAllTransactions();
-    this.setState({toDoLists:this.state.toDoLists, currentList:{items:[]}, open:false});
+    this.setState({toDoLists:this.state.toDoLists, currentList:{items:[]}, open:false, loaded:false});
   }
 
   makeNewToDoListItem = () => {
@@ -166,14 +171,10 @@ class App extends Component {
   };
  
   updateLists = (event) =>{
-    event.preventDefault();
-    let id = event.target.id.split("-").slice(-1)[0];
-    let box = event.target.id.split("-")[0];
-    console.log(id)
-    for (let i =0;i<this.state.toDoLists.length;i++){
-      this.state.toDoLists[i].name = event.target.value;
-      this.setState({toDoLists:this.state.toDoLists})
-    }
+    console.log(event.target.value)
+    this.state.currentList.name = event.target.value;
+    this.setState({currentState: this.state.currentList});
+    
   }
 
 
@@ -181,8 +182,7 @@ class App extends Component {
   f = (event) => {
     let id = event.target.id.split("-").slice(-1)[0];
     let box = event.target.id.split("-")[0];
-    
-    console.log("CHANGE NO?")
+
     for (let i = 0; i < this.state.currentList.items.length; i++) {
       if (this.state.currentList.items[i].id == id) {
         if (box === "description" ) {
@@ -249,24 +249,11 @@ class App extends Component {
     localStorage.setItem("recent_work", toDoListsString);
   };
 
-  handler({ key }) {
-    const ESCAPE_KEYS = ['27', 'Escape'];
-    if (ESCAPE_KEYS.includes(String(key))) {
-      console.log('Escape key pressed!');
-    }
-  }
-  handleKeyDown= (e) => {
-    console.log('yehaw?')
-    if (e.keyCode === 27) {
-      console.log('You pressed the escape key!')
-    }
-  }
   
   render() {
 
     const handleClickOpen = () => {
   
-      console.log("HANDLE IT ")
       this.setState({open:true});
     };
   
@@ -283,6 +270,7 @@ class App extends Component {
           addNewListCallback={this.addNewList}
           firstId={this.state.currentList.id}
           updateLists={this.updateLists}
+          loaded = {this.state.loaded}
         />
         <Workspace
           toDoListItems={this.state.currentList.items}

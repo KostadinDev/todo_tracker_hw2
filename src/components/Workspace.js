@@ -6,6 +6,7 @@ import Redo from '@material-ui/icons/Redo';
 import AddBox from '@material-ui/icons/AddBox';
 import Delete from '@material-ui/icons/Delete';
 import Close from '@material-ui/icons/Close';
+import { ThreeSixty } from '@material-ui/icons';
 
 class Workspace extends Component {
   constructor(props) {
@@ -36,44 +37,66 @@ class Workspace extends Component {
           >
              {this.props.tps.hasTransactionToUndo()?   <Undo
               id="undo-button"
-              className="list-item-control material-icons todo-button"
+              className="list-item-control material-icons highlight todo-button"
               onClick = {this.props.undo}
-            />: ''}
+            />:  <Undo
+            id="undo-button"
+            className="list-item-control material-icons highlight disable todo-button"
+            onClick = {this.props.undo}
+          />}
           
              {this.props.tps.hasTransactionToRedo()?  <Redo
               id="redo-button"
-              className="list-item-control material-icons todo-button"
+              className="list-item-control material-icons highlight todo-button"
               onClick = {this.props.redo}
-            />: ''}
+            />:  <Redo
+            id="redo-button"
+            className="list-item-control material-icons highlight disable todo-button"
+            onClick = {this.props.redo}
+          />}
            
             
         
              {this.props.loaded==true?     <AddBox
               id="add-item-button"
-              className="list-item-control material-icons todo-button"
+              className="list-item-control material-icons highlight todo-button"
               onClick = {this.props.addItem}
-            />: ''}
-               {availability=='available'?   <Delete
+            />: <AddBox
+            id="add-item-button"
+            className="list-item-control material-icons highlight disable todo-button"
+            onClick = {this.props.addItem}
+          />}
+               {this.props.loaded==true?   <Delete
               id="delete-list-button"
-              className="list-item-control material-icons todo-button"
+              className="list-item-control material-icons highlight todo-button"
               onClick={this.props.handleClickOpen}
-            />: ''}
+            />: <Delete
+            id="delete-list-button"
+            className="list-item-control material-icons highlight todo-button disable"
+            onClick={this.props.handleClickOpen}
+          />}
           
-            {availability=='available'? <Close
-              id={"close-list-button " + availability}
-              className="list-item-control material-icons todo-button"
+            {this.props.loaded==true? <Close
+              id={"close-list-button highlight " + availability}
+              className="list-item-control material-icons highlight todo-button"
               onClick = {this.props.close}
-            />: ''}
+            />: <Close
+            id={"close-list-button highlight " + availability}
+            className="list-item-control material-icons highlight todo-button disable"
+            onClick = {this.props.close}
+          />}
           
           </div>
         </div>
         <div id="todo-list-items-div">
-          {this.props.toDoListItems.map((toDoListItem) => (
+          {this.props.toDoListItems.map((toDoListItem, index) => (
             <ToDoItem
               key={toDoListItem.id}
               toDoListItem={toDoListItem} // PASS THE ITEM TO THE CHILDREN
               updateList={this.props.updateList}
               submitForm = {this.props.submitForm}
+              idx = {index}
+              len ={this.props.toDoListItems.length}
             />
           ))}
         </div>

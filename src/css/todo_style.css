@@ -129,3 +129,9 @@
 .list-item-card:hover{
     background-color:rgba(255,255,255,0.4);
 }
+
+.disable{
+
+    background-color: rgba(255,255,255,0);
+    color:rgba(255,255,255,0.1);
+}

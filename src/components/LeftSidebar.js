@@ -18,11 +18,12 @@ class LeftSidebar extends Component {
             <div id="left-sidebar-header" class="section-header">
               <span class="left-sidebar-header-text">Todolists</span>
               <span class="left-sidebar-controls" id="add-undo-redo-box">
-                <AddBox
+                {!this.props.loaded?   <AddBox
                   id="add-list-button"
-                  className="material-icons todo_button"
+                  className="material-icons todo_button highlight"
                   onClick={this.handleAddNewList}
-                />
+                />: ""}
+             
               </span>
             </div>
             <div id="todo-lists-list">
