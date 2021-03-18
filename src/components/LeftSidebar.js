@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import ListLink from './ListLink'
 import AddBox from '@material-ui/icons/AddBox';
+import ToDoList from './ToDoList'
 
 class LeftSidebar extends Component {
     constructor(props) {
@@ -12,6 +13,10 @@ class LeftSidebar extends Component {
         this.props.addNewListCallback();
     }
 
+    handleLoadList = (event, list) => {
+      console.log(list, 'here')
+      this.props.loadToDoListCallback(list);
+  }
     render() {
         return (
           <div id="left-sidebar">
@@ -26,15 +31,21 @@ class LeftSidebar extends Component {
              
               </span>
             </div>
+  
             <div id="todo-lists-list">
-              {this.props.toDoLists.map((toDoList) => (
-                <ListLink
-                  key={Math.random().toString(36).substr(2, 9)}
-                  toDoList={toDoList} // PASS THE LIST TO THE CHILDREN
-                  loadToDoListCallback={this.props.loadToDoListCallback}
-                  firstId={this.props.firstId}
-                  updateLists={this.props.updateLists}
-                /> // PASS THE CALLBACK TO THE CHILDREN
+              {this.props.toDoLists.map((toDoList,index) => (
+                <ToDoList name = {toDoList.name}
+                loadToDoListCallback={this.props.loadToDoListCallback}
+                listy = {toDoList}
+                updateLists = {this.props.updateLists}
+                idx = {index}/>
+                // <ListLink
+                //   key={Math.random().toString(36).substr(2, 9)}
+                //   toDoList={toDoList} // PASS THE LIST TO THE CHILDREN
+                //   loadToDoListCallback={this.props.loadToDoListCallback}
+                //   firstId={this.props.firstId}
+                //   updateLists={this.props.updateLists}
+                // /> // PASS THE CALLBACK TO THE CHILDREN
               ))}
             </div>
           </div>

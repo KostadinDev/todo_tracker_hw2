@@ -25,9 +25,9 @@ class ListLink extends Component {
         return (
             <div 
                 className='todo-list-button'
-                onClick = {this.handleLoadList}
+                 onClick = {this.handleLoadList}
             >   
-                <form><input type = 'text' value = {this.props.toDoList.name} onChange = {this.props.updateLists} className ='item-input'></input>
+                <form><input type = 'text'  onChange = {this.props.updateLists} className ='item-input'></input>
                 </form>
                 <br />
             </div>

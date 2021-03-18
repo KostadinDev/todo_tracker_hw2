@@ -156,3 +156,10 @@
     pointer-events: none;
     background-color: gray;
 }
+.top{
+    color:white;
+    border:none;
+    font-weight: bold;
+    font-family: var(--font-primary);
+    text-align: center;
+}
