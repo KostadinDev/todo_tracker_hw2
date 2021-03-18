@@ -3,7 +3,7 @@ import React from 'react';
 
 const ToDoList = (props) =>{
     return (
-      <div className = "todo-list-button"
+      <div className = "todo-list-button "
         onClick={(event) => {
           console.log(props.listy, "ehm");
           props.loadToDoListCallback(props.listy);

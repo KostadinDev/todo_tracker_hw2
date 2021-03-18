@@ -3,9 +3,8 @@ import React, { Component } from 'react'
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Close from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import { MDBCloseIcon } from "mdbreact"
-
+import { Fragment } from "react";
+import { MDBBtn, MDBIcon } from "mdbreact";
 class ToDoItem extends Component {
     constructor(props) {
         super(props);
@@ -92,37 +91,53 @@ class ToDoItem extends Component {
                 className="list-item-control highlight todo-button inv"
               />
               {!(this.props.idx == 0) ? (
-                <KeyboardArrowUp
+                <MDBIcon
+                icon="angle-down"
+                size="lg"
                   id={"arrowUp-" + listItem.id}
                   onClick={this.props.updateList}
-                  className="list-item-control highlight todo-button"
+                  className="highlight todo-button bttns"
                 />
               ) : (
-                <KeyboardArrowUp
+                <MDBIcon
+                icon="angle-down"
+                size="lg"
                   id={"arrowUp-" + listItem.id}
                   onClick={this.props.updateList}
-                  className="list-item-control highlight todo-button disable"
+                  className=" highlight todo-button disable bttns"
                 />
               )}
               {this.props.idx != this.props.len - 1 ? (
-                <KeyboardArrowDown
+                <MDBIcon
+                  icon="angle-up"
+                  size="lg"
                   id={"arrowDown-" + listItem.id}
                   onClick={this.props.updateList}
-                  className="list-item-control highlight todo-button"
+                  className=" highlight todo-button bttns"
                 />
               ) : (
-                <KeyboardArrowDown
+                <MDBIcon
+                  icon="angle-up"
+                  size="lg"
                   id={"arrowDown-" + listItem.id}
                   onClick={this.props.updateList}
-                  className="list-item-control highlight todo-button disable"
+                  className=" highlight todo-button disable bttns "
                 />
               )}
 
-              <Close
+              <MDBIcon
+                icon="times"
+                size="lg"
+                id={"close-" + listItem.id}
+                onClick={this.props.updateList}
+                className=" highlight todo-button bttns"
+              />
+
+              {/* <Close
                 id={"close-" + listItem.id}
                 onClick={this.props.updateList}
                 className="list-item-control highlight todo-button"
-              />
+              /> */}
             </div>
           </div>
         );

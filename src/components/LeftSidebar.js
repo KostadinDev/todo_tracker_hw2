@@ -20,8 +20,8 @@ class LeftSidebar extends Component {
     render() {
         return (
           <div id="left-sidebar">
-            <div id="left-sidebar-header" class="section-header">
-              <span class="left-sidebar-header-text">Todolists</span>
+            <div id="left-sidebar-header" className="section-header">
+              <span >Todolists</span>
               <span class="left-sidebar-controls" id="add-undo-redo-box">
                 {!this.props.loaded?   <AddBox
                   id="add-list-button"
@@ -32,7 +32,7 @@ class LeftSidebar extends Component {
               </span>
             </div>
   
-            <div id="todo-lists-list">
+            <div id="todo-lists-list" className = "left-sidebar-header-text">
               {this.props.toDoLists.map((toDoList,index) => (
                 <ToDoList name = {toDoList.name}
                 loadToDoListCallback={this.props.loadToDoListCallback}
