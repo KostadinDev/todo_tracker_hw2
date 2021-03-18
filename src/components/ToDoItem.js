@@ -92,7 +92,7 @@ class ToDoItem extends Component {
               />
               {!(this.props.idx == 0) ? (
                 <MDBIcon
-                icon="angle-down"
+                icon="angle-up"
                 size="lg"
                   id={"arrowUp-" + listItem.id}
                   onClick={this.props.updateList}
@@ -100,7 +100,7 @@ class ToDoItem extends Component {
                 />
               ) : (
                 <MDBIcon
-                icon="angle-down"
+                icon="angle-up"
                 size="lg"
                   id={"arrowUp-" + listItem.id}
                   onClick={this.props.updateList}
@@ -109,7 +109,7 @@ class ToDoItem extends Component {
               )}
               {this.props.idx != this.props.len - 1 ? (
                 <MDBIcon
-                  icon="angle-up"
+                  icon="angle-down"
                   size="lg"
                   id={"arrowDown-" + listItem.id}
                   onClick={this.props.updateList}
@@ -117,7 +117,7 @@ class ToDoItem extends Component {
                 />
               ) : (
                 <MDBIcon
-                  icon="angle-up"
+                  icon="angle-down"
                   size="lg"
                   id={"arrowDown-" + listItem.id}
                   onClick={this.props.updateList}
